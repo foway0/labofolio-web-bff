@@ -25,15 +25,12 @@ class Context {
       config.options
     );
 
-    await this._mysql.authenticate().then(() => {
+    await SequelizeHelper.authenticate(this._mysql).then(() => {
       debug('mysql connected');
     });
   }
 
   public initModels() {
-    for (const model in models) {
-      console.log(model);
-    }
     // set
     if (this._mysql instanceof Sequelize) {
       this._db.users = models.users.factory(this._mysql);
