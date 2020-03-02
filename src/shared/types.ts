@@ -11,3 +11,8 @@ export interface DB {
   users?: typeof models.users.Users;
   blogs?: typeof models.blogs.Blogs;
 }
+
+export interface SSL {
+  SSL_KEY?: string;
+  SSL_CERT?: string;
+}

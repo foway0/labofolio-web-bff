@@ -1,0 +1,13 @@
+get:
+  description: |
+    ping then pong
+  operationId: ping
+  x-eov-operation-handler: routes/ping
+  responses:
+    '200':
+      description: OK
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: pong

@@ -1,8 +1,14 @@
+import env from './shared/env';
 import config from './shared/config';
-import context from './context';
+import Context from './context';
+import Application from './application';
 
 (async (): Promise<void> => {
-  await context.initStore(config.mysql);
-  context.initModels();
-  await context.syncModels();
+  await Context.initStore(config.mysql);
+  Context.initModels();
+  await Context.syncModels();
+
+  const app = new Application(env.SERVICE_HOST, env.SERVICE_PORT);
+  await app.init();
+  app.start({});
 })();
