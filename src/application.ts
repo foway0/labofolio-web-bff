@@ -42,9 +42,13 @@ class Application {
   }
 
   public async init(): Promise<void> {
+    this.app.get('/favicon.ico', (req, res) => res.sendStatus(204));
     this.app.use((req, res, next) => {
       debug(`${this.host}:${this.port}${req.url}`);
-      next();
+      if (req.method === 'OPTIONS') {
+        return res.end();
+      }
+      return next();
     });
 
     await new OpenApiValidator({

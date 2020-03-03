@@ -5,8 +5,8 @@ class SequelizeHelper {
     return model?.sync();
   }
 
-  static authenticate(sequelize: Sequelize) {
-    return sequelize.authenticate();
+  static async authenticate(sequelize?: Sequelize) {
+    return sequelize?.authenticate();
   }
 }
 

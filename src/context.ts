@@ -43,6 +43,10 @@ class Context {
     await SequelizeHelper.sync(this._db.users);
     await SequelizeHelper.sync(this._db.blogs);
   }
+
+  getMysql() {
+    return this._mysql;
+  }
 }
 
 export default new Context();

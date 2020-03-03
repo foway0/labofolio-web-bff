@@ -1,5 +1,9 @@
 import { RequestHandler } from 'express';
 
-export const ping: RequestHandler = async (req, res, next): Promise<void> => {
-  res.status(200).send('pong');
-};
+import context from '../context';
+import { wrap, SequelizeHelper } from '../helper';
+
+export const ping: RequestHandler = wrap(async (req, res) => {
+  await SequelizeHelper.authenticate(context.getMysql());
+  return res.status(200).send('pong');
+});
