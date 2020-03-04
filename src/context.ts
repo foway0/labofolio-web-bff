@@ -51,6 +51,10 @@ class Context {
   getMysql() {
     return this._mysql;
   }
+
+  getDB() {
+    return this._db;
+  }
 }
 
 export default new Context();
