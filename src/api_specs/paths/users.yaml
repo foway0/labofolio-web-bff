@@ -1,0 +1,106 @@
+paths:
+  post:
+    tags:
+      - user
+    description: |
+      create new user
+    x-eov-operation-id: create
+    x-eov-operation-handler: routes/users
+    requestBody:
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: '#/components/schemas/UserPayload'
+      required: true
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+
+  get:
+    tags:
+      - user
+    description: |
+      user list
+    x-eov-operation-id: list
+    x-eov-operation-handler: routes/users
+    parameters:
+      - $ref: './common.yaml#/components/parameters/limitQueryParams'
+      - $ref: './common.yaml#/components/parameters/offsetQueryParams'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserList'
+
+components:
+  schemas:
+    UserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+      required:
+        - count
+        - rows
+    UserPayload:
+      properties:
+        strategy_id:
+          type: string
+        status:
+          type: string
+          enum:
+            - invalid
+            - valid
+        role_id:
+          type: string
+          enum:
+            - viewer
+            - admin
+        nickname:
+          type: string
+        profile_url:
+          type: string
+      required:
+        - strategy_id
+        - status
+        - role_id
+        - nickname
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        strategy_id:
+          type: string
+        status:
+          type: string
+          enum:
+            - invalid
+            - valid
+        role_id:
+          type: string
+          enum:
+            - viewer
+            - admin
+        nickname:
+          type: string
+        profile_url:
+          type: string
+      required:
+        - strategy_id
+        - status
+        - role_id
+        - nickname

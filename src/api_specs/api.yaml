@@ -5,7 +5,15 @@ info:
   license:
     name: MIT
 servers:
-  - url: /
+  - url: https://local-api.labofolio.com
 paths:
   /ping:
-    $ref: './paths/ping.yaml'
+    $ref: './paths/ping.yaml#/paths'
+  /users:
+    $ref: './paths/users.yaml#/paths'
+
+tags:
+  - name: system
+    description: system relation api
+  - name: users
+    description: user api list

@@ -1,0 +1,16 @@
+components:
+  parameters:
+    limitQueryParams:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        minimum: 1
+        default: 20
+        maximum: 100
+    offsetQueryParams:
+      in: query
+      name: offset
+      schema:
+        type: integer
+        minimum: 0
