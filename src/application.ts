@@ -41,6 +41,8 @@ class Application {
   }
 
   public async init(): Promise<void> {
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(express.json());
     this.app.get('/favicon.ico', (req, res) => res.sendStatus(204));
     this.app.use((req, res, next) => {
       debug(`${this.host}:${this.port}${req.url}`);
