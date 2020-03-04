@@ -1,5 +1,3 @@
-import errorHandler from './middleware/error_handler';
-
 const debug = process.env.DEBUG
   ? require('debug')('labofolio:application')
   : () => {};
@@ -11,6 +9,7 @@ import { OpenApiValidator } from 'express-openapi-validator';
 import * as path from 'path';
 
 import { SSL } from './shared/types';
+import errorHandler from './middleware/error_handler';
 
 class Application {
   private readonly host: string;

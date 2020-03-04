@@ -41,8 +41,11 @@ class Context {
 
   public async syncModels() {
     // sync
-    await SequelizeHelper.sync(this._db.users);
-    await SequelizeHelper.sync(this._db.blogs);
+    await Promise.all([
+      SequelizeHelper.sync(this._db.users),
+      SequelizeHelper.sync(this._db.blogs),
+      SequelizeHelper.sync(this._db.blog_snapshots)
+    ]);
   }
 
   getMysql() {
