@@ -40,7 +40,7 @@ class Users extends Model<Users> {
       },
       profile_url: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       }
     };
 
