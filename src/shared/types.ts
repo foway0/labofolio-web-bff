@@ -1,5 +1,3 @@
-import models from '../models';
-
 export interface MysqlConfig {
   database: string;
   username: string;
@@ -8,8 +6,7 @@ export interface MysqlConfig {
 }
 
 export interface DB {
-  users?: typeof models.users.Users;
-  blogs?: typeof models.blogs.Blogs;
+  [key: string]: any;
 }
 
 export interface SSL {

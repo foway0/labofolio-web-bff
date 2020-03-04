@@ -10,7 +10,7 @@ import { SequelizeHelper } from './helper';
 
 class Context {
   private _mysql?: Sequelize;
-  private _db: DB;
+  private readonly _db: DB;
 
   constructor() {
     this._db = {};
@@ -32,10 +32,11 @@ class Context {
 
   public initModels() {
     // set
-    if (this._mysql instanceof Sequelize) {
-      this._db.users = models.users.factory(this._mysql);
-      this._db.blogs = models.blogs.factory(this._mysql);
-    }
+    Object.entries(models).forEach(([key, value]) => {
+      if (this._mysql instanceof Sequelize) {
+        this._db[key] = value.factory(this._mysql);
+      }
+    });
   }
 
   public async syncModels() {
