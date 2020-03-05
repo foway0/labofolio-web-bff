@@ -7,6 +7,7 @@ import Application from './application';
   await Context.initStore(config.mysql);
   Context.initModels();
   await Context.syncModels();
+  await Context.initCache(config.redis);
 
   const app = new Application(env.SERVICE_HOST, env.SERVICE_PORT);
   await app.init();

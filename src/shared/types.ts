@@ -7,6 +7,11 @@ export interface MysqlConfig {
   options: object;
 }
 
+export interface RedisConfig {
+  host: string;
+  port: number;
+}
+
 export interface DB {
   [key: string]: any;
 }

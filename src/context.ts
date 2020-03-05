@@ -3,14 +3,16 @@ const debug = process.env.DEBUG
   : () => {};
 
 import { Sequelize } from 'sequelize';
+import { Cluster } from 'ioredis';
 
-import { MysqlConfig, DB } from './shared/types';
+import { MysqlConfig, RedisConfig, DB } from './shared/types';
 import models from './models';
 import { SequelizeHelper } from './helper';
 
 class Context {
   private _mysql?: Sequelize;
   private readonly _db: DB;
+  private _cache?: Cluster;
 
   constructor() {
     this._db = {};
@@ -18,7 +20,7 @@ class Context {
   }
 
   public async initStore(config: MysqlConfig): Promise<void> {
-    this._mysql = new Sequelize(
+    this._mysql = await new Sequelize(
       config.database,
       config.username,
       config.password,
@@ -48,11 +50,27 @@ class Context {
     ]);
   }
 
-  getMysql() {
+  public async initCache(config: RedisConfig[]) {
+    this._cache = await new Cluster(config);
+
+    this._cache.on('connect', () => {
+      debug('redis connected');
+    });
+
+    this._cache.on('error', error => {
+      debug(error);
+    });
+
+    this._cache.on('ready', () => {
+      debug('REDIS READY');
+    });
+  }
+
+  public getMysql() {
     return this._mysql;
   }
 
-  getDB() {
+  public getDB() {
     return this._db;
   }
 }
