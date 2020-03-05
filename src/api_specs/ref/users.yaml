@@ -1,7 +1,7 @@
 paths:
   post:
     tags:
-      - user
+      - users
     description: |
       create new user
     x-eov-operation-id: create
@@ -22,7 +22,7 @@ paths:
 
   get:
     tags:
-      - user
+      - users
     description: |
       user list
     x-eov-operation-id: list
@@ -53,6 +53,21 @@ components:
       required:
         - count
         - rows
+      example:
+        count: 2
+        rows:
+          - id: 1
+            strategy_id: 'xxxxxxxxxx'
+            status: 'valid'
+            role_id: 'viewer'
+            nickname: 'HOGE'
+            profile_url: '/profile/images/1.png'
+          - id: 2
+            strategy_id: 'xxxxxxxxxx'
+            status: 'valid'
+            role_id: 'admin'
+            nickname: 'SUPER_HOGE'
+            profile_url: '/profile/images/1.png'
     User:
       type: object
       properties:
@@ -81,3 +96,10 @@ components:
         - status
         - role_id
         - nickname
+      example:
+        id: 1
+        strategy_id: 'xxxxxxxxxx'
+        status: 'valid'
+        role_id: 'viewer'
+        nickname: 'HOGE'
+        profile_url: '/profile/images/1.png'
