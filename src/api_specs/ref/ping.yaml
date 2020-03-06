@@ -1,16 +1,17 @@
 paths:
-  get:
-    tags:
-      - system
-    description: |
-      ping then pong
-    x-eov-operation-id: ping
-    x-eov-operation-handler: routes/ping
-    responses:
-      '200':
-        description: OK
-        content:
-          text/plain:
-            schema:
-              type: string
-              example: pong
+  ping:
+    get:
+      tags:
+        - system
+      description: |
+        ping then pong
+      x-eov-operation-id: ping
+      x-eov-operation-handler: ping
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong

@@ -56,7 +56,7 @@ class Application {
       apiSpec: path.join(__dirname, './api_specs/api.yaml'),
       validateRequests: true,
       validateResponses: true,
-      operationHandlers: path.join(__dirname)
+      operationHandlers: path.join(__dirname, 'routes')
     }).install(this.app);
 
     // error handler

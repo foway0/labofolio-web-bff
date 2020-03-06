@@ -8,9 +8,9 @@ servers:
   - url: https://local-api.labofolio.com
 paths:
   /ping:
-    $ref: './ref/ping.yaml#/paths'
+    $ref: './ref/ping.yaml#/paths/ping'
   /users:
-    $ref: './ref/users.yaml#/paths'
+    $ref: './ref/users.yaml#/paths/users'
 
 components:
   schemas:
