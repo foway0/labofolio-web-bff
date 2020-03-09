@@ -11,6 +11,8 @@ paths:
     $ref: './ref/ping.yaml#/paths/ping'
   /users:
     $ref: './ref/users.yaml#/paths/users'
+  /users/{user_id}:
+    $ref: './ref/users.yaml#/paths/user'
 
 components:
   schemas:

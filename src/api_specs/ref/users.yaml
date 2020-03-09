@@ -39,6 +39,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserList'
 
+  user:
+    get:
+      tags:
+        - users
+      description: |
+        get user info
+      x-eov-operation-id: one
+      x-eov-operation-handler: users
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: number
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+             application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
 components:
   schemas:
     UserList:
