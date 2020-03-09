@@ -1,5 +1,5 @@
 import { Model, Sequelize } from 'sequelize';
-import { FindAndCountOptions } from 'sequelize';
+import { FindAndCountOptions, Identifier } from 'sequelize';
 
 class SequelizeHelper {
   static sync<M extends Model>(model?: { new (): M } & typeof Model) {
@@ -14,15 +14,22 @@ class SequelizeHelper {
     model?: { new (): M } & typeof Model,
     options?: object
   ) {
-    return model?.create(options);
+    return Object(model?.create(options));
+  }
+
+  static findByPk<M extends Model>(
+    model?: { new (): M } & typeof Model,
+    options?: Identifier
+  ) {
+    return Object(model?.findByPk(options));
   }
 
   static findAndCountAll<M extends Model>(
     model?: { new (): M } & typeof Model,
     options?: FindAndCountOptions
   ) {
-    return model?.findAndCountAll(options);
+    return Array(model?.findAndCountAll(options));
   }
 }
 
-export { SequelizeHelper };
+export { SequelizeHelper as sequelize };
