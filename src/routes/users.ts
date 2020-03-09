@@ -2,13 +2,11 @@ import { RequestHandler } from 'express';
 import { sprintf } from 'sprintf-js';
 
 import constant from '../shared/constant';
-import Context from '../context';
+import Context from '../index';
 import { wrap, sequelize, redis } from '../helper';
 
-const User = Context.getDB().users;
-const cache = Context.getCache();
-
 export const list: RequestHandler = wrap(async (req, res) => {
+  const User = (await Context).getDB().users;
   const options = {
     limit: req.query.limit,
     offset: req.query.offset
@@ -19,6 +17,8 @@ export const list: RequestHandler = wrap(async (req, res) => {
 });
 
 export const create: RequestHandler = wrap(async (req, res) => {
+  const User = (await Context).getDB().users;
+  const cache = (await Context).getCache();
   const options = {
     strategy_id: req.body.strategy_id,
     status: req.body.status,
@@ -33,6 +33,8 @@ export const create: RequestHandler = wrap(async (req, res) => {
 });
 
 export const one: RequestHandler = wrap(async (req, res) => {
+  const User = (await Context).getDB().users;
+  const cache = (await Context).getCache();
   let user = await redis.get(
     sprintf(constant.REDIS.USERS_PREFIX, req.params.user_id),
     cache

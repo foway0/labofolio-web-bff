@@ -1,4 +1,7 @@
-import models from '../models';
+export interface Config {
+  mysql: MysqlConfig;
+  redis: RedisConfig[];
+}
 
 export interface MysqlConfig {
   database: string;
@@ -14,12 +17,6 @@ export interface RedisConfig {
 
 export interface DB {
   [key: string]: any;
-}
-
-export interface DB {
-  users?: typeof models.users.Users;
-  blogs?: typeof models.blogs.Blogs;
-  blog_snapshots?: typeof models.blog_snapshots.BlogSnapshots;
 }
 
 export interface SSL {
