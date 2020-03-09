@@ -7,7 +7,7 @@ import { Cluster } from 'ioredis';
 
 import { MysqlConfig, RedisConfig, DB } from './shared/types';
 import models from './models';
-import { SequelizeHelper } from './helper';
+import { sequelize } from './helper';
 
 class Context {
   private _mysql?: Sequelize;
@@ -27,7 +27,7 @@ class Context {
       config.options
     );
 
-    await SequelizeHelper.authenticate(this._mysql).then(() => {
+    await sequelize.authenticate(this._mysql).then(() => {
       debug('mysql connected');
     });
   }
@@ -44,9 +44,9 @@ class Context {
   public async syncModels() {
     // sync
     await Promise.all([
-      SequelizeHelper.sync(this._db.users),
-      SequelizeHelper.sync(this._db.blogs),
-      SequelizeHelper.sync(this._db.blog_snapshots)
+      sequelize.sync(this._db.users),
+      sequelize.sync(this._db.blogs),
+      sequelize.sync(this._db.blog_snapshots)
     ]);
   }
 
@@ -72,6 +72,10 @@ class Context {
 
   public getDB() {
     return this._db;
+  }
+
+  public getCache() {
+    return this?._cache;
   }
 }
 
