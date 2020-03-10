@@ -10,16 +10,27 @@ import * as path from 'path';
 
 import { SSL } from './shared/types';
 import errorHandler from './middleware/error_handler';
+import { Context as ctx } from './context';
+
+declare global {
+  namespace Express {
+    interface Request {
+      ctx: ctx;
+    }
+  }
+}
 
 class Application {
   private readonly host: string;
   private readonly port: number;
   private readonly app: express.Application;
   private _server?: https.Server | http.Server;
+  private readonly ctx: ctx;
 
-  constructor(host: string, port: number) {
+  constructor(host: string, port: number, ctx: ctx) {
     this.host = host;
     this.port = port;
+    this.ctx = ctx;
 
     this.app = express();
   }
@@ -45,6 +56,7 @@ class Application {
     this.app.use(express.json());
     this.app.get('/favicon.ico', (req, res) => res.sendStatus(204));
     this.app.use((req, res, next) => {
+      req.ctx = this.ctx;
       debug(`${this.host}:${this.port}${req.url}`);
       if (req.method === 'OPTIONS') {
         return res.end();
