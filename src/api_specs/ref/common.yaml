@@ -14,3 +14,10 @@ components:
       schema:
         type: integer
         minimum: 0
+
+    userIdPathParams:
+      in: path
+      name: user_id
+      schema:
+        type: number
+      required: true

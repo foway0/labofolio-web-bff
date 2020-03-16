@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { sprintf } from 'sprintf-js';
+import ono from '@jsdevtools/ono';
 
 import constant from '../shared/constant';
 import { wrap, sequelize, redis } from '../helper';
@@ -45,4 +46,32 @@ export const one: RequestHandler = wrap(async (req, res) => {
   }
 
   return res.status(200).json(user);
+});
+
+export const update: RequestHandler = wrap(async (req, res) => {
+  if (
+    !req.body.status &&
+    !req.body.role_id &&
+    !req.body.nickname &&
+    !req.body.profile_url
+  ) {
+    throw ono(
+      { status: 400, errors: 'FIXME' },
+      `request.body requires properties at least one of them`
+    );
+  }
+
+  const User = req.ctx.getDB().users;
+  const cache = req.ctx.getCache();
+
+  const options = {
+    where: { id: req.params.user_id }
+  };
+  await sequelize.update(User, req.body, options);
+  await redis.del(
+    cache,
+    sprintf(constant.REDIS.USERS_PREFIX, req.params.user_id)
+  );
+
+  return res.status(204).end();
 });

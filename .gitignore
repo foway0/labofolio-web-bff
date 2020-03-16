@@ -13,3 +13,6 @@ coverage
 
 # built ts files
 dist
+
+# swagger-merger output file
+output.yaml

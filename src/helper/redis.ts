@@ -1,15 +1,19 @@
 import { Cluster, KeyType, ValueType } from 'ioredis';
 
 class RedisHelper {
-  static async set(cache: Cluster, prefix: KeyType, obj: ValueType) {
+  static set(cache: Cluster, prefix: KeyType, obj: ValueType) {
     const stringify = JSON.stringify(obj);
     return cache.set(prefix, stringify);
   }
 
-  static async get(cache: Cluster, prefix: KeyType): Promise<any> {
+  static get(cache: Cluster, prefix: KeyType) {
     return cache.get(prefix).then(result => {
       if (result) return JSON.parse(result);
     });
+  }
+
+  static del(cache: Cluster, prefix: KeyType) {
+    return cache.del(prefix);
   }
 }
 

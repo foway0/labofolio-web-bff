@@ -1,5 +1,5 @@
 import { Model, Sequelize } from 'sequelize';
-import { FindAndCountOptions, Identifier } from 'sequelize';
+import { FindAndCountOptions, Identifier, UpdateOptions } from 'sequelize';
 
 class SequelizeHelper {
   static sync<M extends Model>(model: { new (): M } & typeof Model) {
@@ -29,6 +29,14 @@ class SequelizeHelper {
     options: FindAndCountOptions
   ) {
     return Object(model.findAndCountAll(options));
+  }
+
+  static update<M extends Model>(
+    model: { new (): M } & typeof Model,
+    values: object,
+    options: UpdateOptions
+  ) {
+    return Object(model.update(values, options));
   }
 }
 

@@ -20,6 +20,15 @@ components:
       $ref: './ref/users.yaml#/components/schemas/UserList'
     User:
       $ref: './ref/users.yaml#/components/schemas/User'
+    UserPayload:
+      $ref: './ref/users.yaml#/components/schemas/UserPayload'
+  parameters:
+    limitQueryParams:
+      $ref: './ref/common.yaml#/components/parameters/limitQueryParams'
+    offsetQueryParams:
+      $ref: './ref/common.yaml#/components/parameters/offsetQueryParams'
+    userIdPathParams:
+      $ref: './ref/common.yaml#/components/parameters/userIdPathParams'
 
 tags:
   - name: system
