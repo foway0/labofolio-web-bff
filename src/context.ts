@@ -5,28 +5,23 @@ const debug = process.env.DEBUG
 import { Sequelize } from 'sequelize';
 import { Cluster } from 'ioredis';
 
-import { MysqlConfig, RedisConfig, DB } from './shared/types';
+import { Config, DB } from './shared/types';
 import models from './models';
 import { sequelize } from './helper';
 
 class Context {
-  private _mysql?: Sequelize;
+  private readonly _mysql: Sequelize;
   private readonly _db: DB;
-  private _cache?: Cluster;
+  private readonly _cache: Cluster;
 
-  constructor() {
+  constructor(mysql: Sequelize, cache: Cluster) {
+    this._mysql = mysql;
+    this._cache = cache;
     this._db = {};
     debug('Context is initialized');
   }
 
-  public async initStore(config: MysqlConfig): Promise<void> {
-    this._mysql = await new Sequelize(
-      config.database,
-      config.username,
-      config.password,
-      config.options
-    );
-
+  public async initStore(): Promise<void> {
     await sequelize.authenticate(this._mysql).then(() => {
       debug('mysql connected');
     });
@@ -35,9 +30,7 @@ class Context {
   public initModels() {
     // set
     Object.entries(models).forEach(([key, value]) => {
-      if (this._mysql instanceof Sequelize) {
-        this._db[key] = value.factory(this._mysql);
-      }
+      this._db[key] = value.factory(this._mysql);
     });
   }
 
@@ -50,9 +43,7 @@ class Context {
     ]);
   }
 
-  public async initCache(config: RedisConfig[]) {
-    this._cache = await new Cluster(config);
-
+  public async initCache() {
     this._cache.on('connect', () => {
       debug('redis connected');
     });
@@ -75,8 +66,20 @@ class Context {
   }
 
   public getCache() {
-    return this?._cache;
+    return this._cache;
   }
 }
 
-export default new Context();
+export { Context };
+export default (config: Config) => {
+  const { mysql, redis } = config;
+  const conn = new Sequelize(
+    mysql.database,
+    mysql.username,
+    mysql.password,
+    mysql.options
+  );
+  const cache = new Cluster(redis);
+
+  return new Context(conn, cache);
+};

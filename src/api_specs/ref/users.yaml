@@ -48,18 +48,33 @@ paths:
       x-eov-operation-id: one
       x-eov-operation-handler: users
       parameters:
-        - in: path
-          name: user_id
-          schema:
-            type: number
-          required: true
+        - $ref: './common.yaml#/components/parameters/userIdPathParams'
       responses:
         '200':
           description: OK
           content:
-             application/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/User'
+
+    patch:
+      tags:
+        - users
+      description: |
+        update user info
+      x-eov-operation-id: update
+      x-eov-operation-handler: users
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserPayload'
+        required: true
+      parameters:
+        - $ref: './common.yaml#/components/parameters/userIdPathParams'
+      responses:
+        '204':
+          description: No Content
 
 components:
   schemas:
@@ -122,6 +137,28 @@ components:
       example:
         id: 1
         strategy_id: 'xxxxxxxxxx'
+        status: 'valid'
+        role_id: 'viewer'
+        nickname: 'HOGE'
+        profile_url: '/profile/images/1.png'
+    UserPayload:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - invalid
+            - valid
+        role_id:
+          type: string
+          enum:
+            - viewer
+            - admin
+        nickname:
+          type: string
+        profile_url:
+          type: string
+      example:
         status: 'valid'
         role_id: 'viewer'
         nickname: 'HOGE'
