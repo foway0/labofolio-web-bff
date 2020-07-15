@@ -1,5 +1,6 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
 import { InitOptions, ModelAttributes } from 'sequelize/types/lib/model';
+import { DB } from '../shared/types';
 
 const TABLE_NAME = 'blogs';
 const STATUS = {
@@ -62,6 +63,14 @@ class Blogs extends Model<Blogs> {
       ],
     };
     return this.init(attribute, options);
+  }
+
+  static associate(db: DB): void {
+    Blogs.hasMany(db.blog_snapshots, {
+      foreignKey: 'blog_id',
+      as: 'blog_snapshot',
+      constraints: false,
+    });
   }
 }
 

@@ -29,8 +29,14 @@ class Context {
 
   public initModels(): void {
     // set
-    Object.entries(models).forEach(([key, value]) => {
-      this._db[key] = value.factory(this._mysql);
+    Object.entries(models).forEach(([tableName, value]) => {
+      this._db[tableName] = value.factory(this._mysql);
+    });
+
+    Object.keys(this._db).forEach((tableName) => {
+      if ('associate' in this._db[tableName]) {
+        this._db[tableName].associate(this._db);
+      }
     });
   }
 

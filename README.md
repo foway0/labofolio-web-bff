@@ -14,3 +14,11 @@ npm install
 npm outdated
 npm update <package-name> --save
 ```
+
+## see swagger
+
+```
+npm install -g swagger-merger
+// devDep???
+swagger-merger -i src/api_specs/api.yaml -o output.yaml
+```

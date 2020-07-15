@@ -1,5 +1,6 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
 import { InitOptions, ModelAttributes } from 'sequelize/types/lib/model';
+import { DB } from '../shared/types';
 
 const TABLE_NAME = 'users';
 const STATUS = {
@@ -56,6 +57,14 @@ class Users extends Model<Users> {
       indexes: [{ unique: true, fields: ['strategy_id'] }],
     };
     return this.init(attribute, options);
+  }
+
+  static associate(db: DB): void {
+    Users.hasMany(db.blogs, {
+      foreignKey: 'user_id',
+      as: 'blogs',
+      constraints: false,
+    });
   }
 }
 
