@@ -8,8 +8,8 @@ export default Object.freeze({
     options: {
       dialect: 'mysql',
       timezone: '+09:00',
-      host: env.MYSQL_HOST
-    }
+      host: env.MYSQL_HOST,
+    },
   },
   redis: [
     { host: env.REDIS_HOST, port: 7000 },
@@ -17,6 +17,6 @@ export default Object.freeze({
     { host: env.REDIS_HOST, port: 7002 },
     { host: env.REDIS_HOST, port: 7003 },
     { host: env.REDIS_HOST, port: 7004 },
-    { host: env.REDIS_HOST, port: 7005 }
-  ]
+    { host: env.REDIS_HOST, port: 7005 },
+  ],
 });

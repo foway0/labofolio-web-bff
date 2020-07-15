@@ -7,7 +7,7 @@ export interface MysqlConfig {
   database: string;
   username: string;
   password: string;
-  options: object;
+  options: Record<string, any>;
 }
 
 export interface RedisConfig {

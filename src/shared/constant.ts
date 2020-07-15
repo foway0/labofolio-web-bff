@@ -1,5 +1,5 @@
 export default Object.freeze({
   REDIS: {
-    USERS_PREFIX: 'users:%s'
-  }
+    USERS_PREFIX: 'users:%s',
+  },
 });

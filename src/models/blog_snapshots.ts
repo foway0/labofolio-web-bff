@@ -4,35 +4,35 @@ import { InitOptions, ModelAttributes } from 'sequelize';
 const TABLE_NAME = 'blog_snapshots';
 
 class BlogSnapshots extends Model<BlogSnapshots> {
-  static attach(sequelize: Sequelize) {
+  static attach(sequelize: Sequelize): Model {
     const attribute: ModelAttributes = {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       blog_id: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
       },
       subject: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       content_md: {
         type: DataTypes.TEXT,
-        allowNull: true
+        allowNull: true,
       },
       content_html: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
       },
       content_text: {
         type: DataTypes.TEXT,
         allowNull: false,
-        comment: 'search only'
-      }
+        comment: 'search only',
+      },
     };
 
     const options: InitOptions = {
@@ -48,18 +48,16 @@ class BlogSnapshots extends Model<BlogSnapshots> {
         {
           type: 'FULLTEXT',
           fields: ['subject', 'content_text'],
-          parser: 'ngram'
-        }
-      ]
+          parser: 'ngram',
+        },
+      ],
     };
-    this.init(attribute, options);
+    return this.init(attribute, options);
   }
 }
 
-const factory = (sequelize: Sequelize) => {
-  BlogSnapshots.attach(sequelize);
-
-  return BlogSnapshots;
+const factory = (sequelize: Sequelize): BlogSnapshots => {
+  return BlogSnapshots.attach(sequelize);
 };
 
 export { BlogSnapshots, factory };

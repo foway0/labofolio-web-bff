@@ -27,28 +27,28 @@ class Context {
     });
   }
 
-  public initModels() {
+  public initModels(): void {
     // set
     Object.entries(models).forEach(([key, value]) => {
       this._db[key] = value.factory(this._mysql);
     });
   }
 
-  public async syncModels() {
+  public async syncModels(): Promise<void> {
     // sync
     await Promise.all([
       sequelize.sync(this._db.users),
       sequelize.sync(this._db.blogs),
-      sequelize.sync(this._db.blog_snapshots)
+      sequelize.sync(this._db.blog_snapshots),
     ]);
   }
 
-  public async initCache() {
+  public async initCache(): Promise<void> {
     this._cache.on('connect', () => {
       debug('redis connected');
     });
 
-    this._cache.on('error', error => {
+    this._cache.on('error', (error) => {
       debug(error);
     });
 
@@ -57,21 +57,21 @@ class Context {
     });
   }
 
-  public getMysql() {
+  public getMysql(): Sequelize {
     return this._mysql;
   }
 
-  public getDB() {
+  public getDB(): DB {
     return this._db;
   }
 
-  public getCache() {
+  public getCache(): Cluster {
     return this._cache;
   }
 }
 
 export { Context };
-export default (config: Config) => {
+export default (config: Config): Context => {
   const { mysql, redis } = config;
   const conn = new Sequelize(
     mysql.database,

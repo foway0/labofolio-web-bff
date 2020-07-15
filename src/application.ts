@@ -39,7 +39,7 @@ class Application {
     if (env.SSL_CERT && env.SSL_KEY) {
       const options = {
         key: env.SSL_KEY,
-        cert: env.SSL_CERT
+        cert: env.SSL_CERT,
       };
 
       this._server = https.createServer(options, this.app);
@@ -68,7 +68,7 @@ class Application {
       apiSpec: path.join(__dirname, './api_specs/api.yaml'),
       validateRequests: true,
       validateResponses: true,
-      operationHandlers: path.join(__dirname, 'routes')
+      operationHandlers: path.join(__dirname, 'routes'),
     }).install(this.app);
 
     // error handler

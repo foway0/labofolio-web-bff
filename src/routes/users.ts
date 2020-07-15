@@ -8,8 +8,8 @@ import { wrap, sequelize, redis } from '../helper';
 export const list: RequestHandler = wrap(async (req, res) => {
   const User = req.ctx.getDB().users;
   const options = {
-    limit: req.query.limit,
-    offset: req.query.offset
+    limit: Number(req.query.limit),
+    offset: Number(req.query.offset),
   };
   const result = await sequelize.findAndCountAll(User, options);
 
@@ -24,7 +24,7 @@ export const create: RequestHandler = wrap(async (req, res) => {
     status: req.body.status,
     role_id: req.body.role_id,
     nickname: req.body.nickname,
-    profile_url: req.body.profile_url
+    profile_url: req.body.profile_url,
   };
   const user = await sequelize.create(User, options);
   await redis.set(cache, sprintf(constant.REDIS.USERS_PREFIX, user.id), user);
@@ -42,6 +42,7 @@ export const one: RequestHandler = wrap(async (req, res) => {
 
   if (!user) {
     user = await sequelize.findByPk(User, req.params.user_id);
+    if (!user) throw ono({ status: 404, errors: 'NOT FOUND' }, `empty data`);
     await redis.set(cache, sprintf(constant.REDIS.USERS_PREFIX, user.id), user);
   }
 
@@ -65,7 +66,7 @@ export const update: RequestHandler = wrap(async (req, res) => {
   const cache = req.ctx.getCache();
 
   const options = {
-    where: { id: req.params.user_id }
+    where: { id: req.params.user_id },
   };
   await sequelize.update(User, req.body, options);
   await redis.del(

@@ -16,7 +16,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     // format errors
     return res.status(err.status || 500).json({
       message: err.message,
-      errors: err.errors
+      errors: err.errors,
     });
   } else {
     return res.status(503).end();
