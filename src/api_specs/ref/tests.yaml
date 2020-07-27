@@ -1,0 +1,62 @@
+paths:
+  tests:
+    get:
+      tags:
+        - tests
+      description: |
+        tests list
+      x-eov-operation-id: list
+      x-eov-operation-handler: tests
+      parameters:
+        - $ref: './common.yaml#/components/parameters/limitQueryParams'
+        - $ref: './common.yaml#/components/parameters/offsetQueryParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestList'
+
+components:
+  schemas:
+    TestList:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Test'
+      required:
+        - count
+        - rows
+      example:
+        count: 2
+        rows:
+          - id: 1
+            subject: 'hello'
+            content_md: 'TODO'
+          - id: 2
+            subject: 'hello2'
+            content_md: 'TODO2'
+    Test:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        subject:
+          type: string
+        content_md:
+          type: string
+      required:
+        - subject
+        - content_md
+      example:
+        id: 1
+        subject: 'hello'
+        content_md: 'TODO'

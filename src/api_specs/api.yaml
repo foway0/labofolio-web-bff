@@ -13,6 +13,8 @@ paths:
     $ref: './ref/users.yaml#/paths/users'
   /users/{user_id}:
     $ref: './ref/users.yaml#/paths/user'
+  /tests:
+    $ref: './ref/tests.yaml#/paths/tests'
 
 components:
   schemas:
@@ -22,6 +24,10 @@ components:
       $ref: './ref/users.yaml#/components/schemas/User'
     UserPayload:
       $ref: './ref/users.yaml#/components/schemas/UserPayload'
+    TestList:
+      $ref: './ref/tests.yaml#/components/schemas/TestList'
+    Test:
+      $ref: './ref/tests.yaml#/components/schemas/Test'
   parameters:
     limitQueryParams:
       $ref: './ref/common.yaml#/components/parameters/limitQueryParams'
