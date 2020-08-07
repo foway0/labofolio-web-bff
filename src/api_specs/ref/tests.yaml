@@ -23,40 +23,41 @@ components:
     TestList:
       type: object
       properties:
-        count:
+        Count:
           type: integer
           format: int32
-        rows:
+        Rows:
           type: array
           items:
             $ref: '#/components/schemas/Test'
       required:
-        - count
-        - rows
+        - Count
+        - Rows
       example:
-        count: 2
-        rows:
-          - id: 1
-            subject: 'hello'
-            content_md: 'TODO'
-          - id: 2
-            subject: 'hello2'
-            content_md: 'TODO2'
+        Count: 2
+        Rows:
+          - Id: 1
+            Subject: 'hello'
+            ContentMd: 'TODO'
+          - Id: 2
+            Subject: 'hello2'
+            ContentMd: 'TODO2'
     Test:
       type: object
       properties:
-        id:
+        Id:
           type: integer
           format: int32
           readOnly: true
-        subject:
+        Subject:
           type: string
-        content_md:
+        ContentMd:
           type: string
       required:
-        - subject
-        - content_md
+        - Id
+        - Subject
+        - ContentMd
       example:
-        id: 1
-        subject: 'hello'
-        content_md: 'TODO'
+        Id: 1
+        Subject: 'hello'
+        ContentMd: 'TODO'

@@ -4,17 +4,17 @@ import { wrap } from '../helper';
 
 export const list: RequestHandler = wrap(async (req, res) => {
   return res.status(200).json({
-    count: 2,
-    rows: [
+    Count: 2,
+    Rows: [
       {
-        id: 1,
-        subject: 'hello',
-        content_md: 'TODO',
+        Id: 1,
+        Subject: 'hello',
+        ContentMd: 'TODO',
       },
       {
-        id: 2,
-        subject: 'hello2',
-        content_md: 'TODO2',
+        Id: 2,
+        Subject: 'hello2',
+        ContentMd: 'TODO2',
       },
     ],
   });
