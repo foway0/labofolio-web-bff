@@ -1,0 +1,152 @@
+paths:
+  blogs:
+    post:
+      tags:
+        - blogs
+      description: |
+        create new blog
+      x-eov-operation-id: create
+      x-eov-operation-handler: blogs
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Blog'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+
+    get:
+      tags:
+        - blogs
+      description: |
+        blog post list
+      x-eov-operation-id: list
+      x-eov-operation-handler: blogs
+      parameters:
+        - $ref: './common.yaml#/components/parameters/limitQueryParams'
+        - $ref: './common.yaml#/components/parameters/offsetQueryParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogList'
+
+  blog:
+    patch:
+      tags:
+        - blogs
+      description: |
+        update blog post
+      x-eov-operation-id: update
+      x-eov-operation-handler: blogs
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BlogPayload'
+        required: true
+      parameters:
+        - $ref: './common.yaml#/components/parameters/blogIdPathParams'
+      responses:
+        '204':
+          description: No Content
+
+components:
+  schemas:
+    BlogList:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Blog'
+      required:
+        - count
+        - rows
+      example:
+        count: 2
+        rows:
+          - id: 1
+            user_id: 1
+            status: 'valid'
+            subject: 'HELLO'
+            content_md: '# HELLO WORLD!'
+            content_html: '<h1>HELLO WORLD!</h1>'
+            content_text: 'HELLO WORLD!'
+          - id: 2
+            user_id: 1
+            status: 'valid'
+            subject: 'HI THERE'
+            content_md: '# HI!'
+            content_html: '<h1>HI!</h1>'
+            content_text: 'HI!'
+    Blog:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        user_id:
+          type: integer
+          format: int32
+        status:
+          type: string
+          enum:
+            - invalid
+            - valid
+        subject:
+          type: string
+        content_md:
+          type: string
+        content_html:
+          type: string
+        content_text:
+          type: string
+      required:
+        - user_id
+        - status
+        - subject
+        - content_html
+        - content_text
+      example:
+        id: 1
+        user_id: 1
+        status: 'valid'
+        subject: 'HELLO'
+        content_md: '# HELLO WORLD!'
+        content_html: '<h1>HELLO WORLD!</h1>'
+        content_text: 'HELLO WORLD!'
+    BlogPayload:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - invalid
+            - valid
+        subject:
+          type: string
+        content_md:
+          type: string
+        content_html:
+          type: string
+        content_text:
+          type: string
+      example:
+        status: 'valid'
+        subject: 'HELLO'
+        content_md: '# HELLO WORLD!'
+        content_html: '<h1>HELLO WORLD!</h1>'
+        content_text: 'HELLO WORLD!'

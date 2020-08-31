@@ -7,27 +7,43 @@ info:
 servers:
   - url: https://local-api.labofolio.com
 paths:
+  ## system 監視
   /ping:
     $ref: './ref/ping.yaml#/paths/ping'
+
+  ## 繋ぎ込みtest用
+  /tests:
+    $ref: './ref/tests.yaml#/paths/tests'
+
+  ## service関連
   /users:
     $ref: './ref/users.yaml#/paths/users'
   /users/{user_id}:
     $ref: './ref/users.yaml#/paths/user'
-  /tests:
-    $ref: './ref/tests.yaml#/paths/tests'
+
+  /blogs:
+    $ref: './ref/blogs.yaml#/paths/blogs'
+  /blogs/{blog_id}:
+    $ref: './ref/blogs.yaml#/paths/blog'
 
 components:
   schemas:
+    TestList:
+      $ref: './ref/tests.yaml#/components/schemas/TestList'
+    Test:
+      $ref: './ref/tests.yaml#/components/schemas/Test'
     UserList:
       $ref: './ref/users.yaml#/components/schemas/UserList'
     User:
       $ref: './ref/users.yaml#/components/schemas/User'
     UserPayload:
       $ref: './ref/users.yaml#/components/schemas/UserPayload'
-    TestList:
-      $ref: './ref/tests.yaml#/components/schemas/TestList'
-    Test:
-      $ref: './ref/tests.yaml#/components/schemas/Test'
+    BlogList:
+      $ref: './ref/blogs.yaml#/components/schemas/BlogList'
+    Blog:
+      $ref: './ref/blogs.yaml#/components/schemas/Blog'
+    BlogPayload:
+      $ref: './ref/blogs.yaml#/components/schemas/BlogPayload'
   parameters:
     limitQueryParams:
       $ref: './ref/common.yaml#/components/parameters/limitQueryParams'
@@ -35,9 +51,13 @@ components:
       $ref: './ref/common.yaml#/components/parameters/offsetQueryParams'
     userIdPathParams:
       $ref: './ref/common.yaml#/components/parameters/userIdPathParams'
+    blogIdPathParams:
+      $ref: './ref/common.yaml#/components/parameters/blogIdPathParams'
 
 tags:
   - name: system
     description: system relation api
   - name: users
     description: user api list
+  - name: blogs
+    description: blog api list
