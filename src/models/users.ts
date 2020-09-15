@@ -21,10 +21,6 @@ class Users extends Model<Users> {
         primaryKey: true,
         autoIncrement: true,
       },
-      strategy_id: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       status: {
         type: DataTypes.ENUM(STATUS.invalid, STATUS.valid),
         allowNull: false,
@@ -54,7 +50,6 @@ class Users extends Model<Users> {
       createdAt: 'created',
       updatedAt: 'modified',
       charset: 'utf8',
-      indexes: [{ unique: true, fields: ['strategy_id'] }],
     };
     return this.init(attribute, options);
   }

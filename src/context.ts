@@ -44,8 +44,12 @@ class Context {
     // sync
     await Promise.all([
       sequelize.sync(this._db.users),
+      sequelize.sync(this._db.user_auth),
       sequelize.sync(this._db.blogs),
       sequelize.sync(this._db.blog_snapshots),
+      sequelize.sync(this._db.categories),
+      sequelize.sync(this._db.category_datasets),
+      sequelize.sync(this._db.temporary_images),
     ]);
   }
 

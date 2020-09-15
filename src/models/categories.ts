@@ -1,9 +1,9 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
 import { InitOptions, ModelAttributes } from 'sequelize';
 
-const TABLE_NAME = 'blog_snapshots';
+const TABLE_NAME = 'categories';
 
-class BlogSnapshots extends Model<BlogSnapshots> {
+class Categories extends Model<Categories> {
   static attach(sequelize: Sequelize): Model {
     const attribute: ModelAttributes = {
       id: {
@@ -12,26 +12,17 @@ class BlogSnapshots extends Model<BlogSnapshots> {
         primaryKey: true,
         autoIncrement: true,
       },
-      blog_id: {
+      user_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
       },
-      subject: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      content_md: {
+      description: {
         type: DataTypes.TEXT,
         allowNull: true,
-      },
-      content_html: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      content_text: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        comment: 'search only',
       },
     };
 
@@ -43,20 +34,13 @@ class BlogSnapshots extends Model<BlogSnapshots> {
       createdAt: 'created',
       updatedAt: 'modified',
       charset: 'utf8',
-      indexes: [
-        {
-          type: 'FULLTEXT',
-          fields: ['subject', 'content_text'],
-          parser: 'ngram',
-        },
-      ],
     };
     return this.init(attribute, options);
   }
 }
 
-const factory = (sequelize: Sequelize): BlogSnapshots => {
-  return BlogSnapshots.attach(sequelize);
+const factory = (sequelize: Sequelize): Categories => {
+  return Categories.attach(sequelize);
 };
 
-export { BlogSnapshots, factory };
+export { Categories, factory };

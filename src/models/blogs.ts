@@ -17,6 +17,10 @@ class Blogs extends Model<Blogs> {
         primaryKey: true,
         autoIncrement: true,
       },
+      category_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+      },
       user_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
