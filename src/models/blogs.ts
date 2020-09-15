@@ -47,6 +47,10 @@ class Blogs extends Model<Blogs> {
         allowNull: false,
         comment: 'search only',
       },
+      thumbnail_images: {
+        type: DataTypes.JSON,
+        allowNull: true,
+      },
     };
 
     const options: InitOptions = {

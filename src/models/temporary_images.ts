@@ -24,6 +24,10 @@ class TemporaryImages extends Model<TemporaryImages> {
         type: DataTypes.STRING(255).BINARY,
         allowNull: false,
       },
+      thumbnail_image_path: {
+        type: DataTypes.STRING(255).BINARY,
+        allowNull: false,
+      },
     };
 
     const options: InitOptions = {

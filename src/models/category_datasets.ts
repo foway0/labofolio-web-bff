@@ -16,7 +16,7 @@ class CategoryDatasets extends Model<CategoryDatasets> {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
       },
-      info: {
+      category_list: {
         type: DataTypes.JSON,
         allowNull: false,
       },
