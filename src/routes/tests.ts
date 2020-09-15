@@ -7,17 +7,17 @@ export const list: RequestHandler = wrap(async (req, res) => {
   const key = 'tests';
   let result = await redis.get(cache, key);
   const tests = {
-    Count: 2,
-    Rows: [
+    count: 2,
+    rows: [
       {
-        Id: 1,
-        Subject: 'hello',
-        ContentMd: 'TODO',
+        id: 1,
+        subject: 'hello',
+        content_md: 'TODO',
       },
       {
-        Id: 2,
-        Subject: 'hello2',
-        ContentMd: 'TODO2',
+        id: 2,
+        subject: 'hello2',
+        content_md: 'TODO2',
       },
     ],
   };
