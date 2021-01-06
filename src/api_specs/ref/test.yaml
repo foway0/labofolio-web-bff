@@ -1,0 +1,17 @@
+paths:
+  test:
+    get:
+      tags:
+        - system
+      description: |
+        grpc client test
+      x-eov-operation-id: test
+      x-eov-operation-handler: test
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example:

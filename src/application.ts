@@ -4,6 +4,8 @@ const debug = process.env.DEBUG
 
 import http from 'http';
 import express from 'express';
+import * as path from 'path';
+import { middleware } from 'express-openapi-validator';
 import constant from './shared/constant';
 
 class Application {
@@ -34,9 +36,12 @@ class Application {
     });
 
     // add route
-    this.app.get('/ping', (req, res) => {
-      return res.status(200).send('pong');
-    });
+    this.app.use(
+      middleware({
+        apiSpec: path.join(__dirname, './api_specs/api.yaml'),
+        operationHandlers: path.join(__dirname, 'routes'),
+      })
+    );
   }
 }
 
