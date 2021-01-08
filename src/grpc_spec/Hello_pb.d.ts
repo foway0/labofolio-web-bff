@@ -1,4 +1,4 @@
-// package: hoge
+// package: hello
 // file: Hello.proto
 
 /* tslint:disable */

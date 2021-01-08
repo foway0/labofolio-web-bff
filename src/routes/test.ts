@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
-import { GreeterClient } from '../grpc_spec/Hello_grpc_pb';
 import grpc from 'grpc';
+import { GreeterClient } from '../grpc_spec/Hello_grpc_pb';
 import { HelloRequest } from '../grpc_spec/Hello_pb';
 
 export const test: RequestHandler = async (req, res) => {
@@ -13,6 +13,7 @@ export const test: RequestHandler = async (req, res) => {
   message.setName('HI');
 
   return client.sayHello(message, (error, response) => {
+    // TODO error handling
     res.status(200).send(response.getMessage());
   });
 };

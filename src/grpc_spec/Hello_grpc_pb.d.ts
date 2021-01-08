@@ -1,4 +1,4 @@
-// package: hoge
+// package: hello
 // file: Hello.proto
 
 /* tslint:disable */
@@ -13,7 +13,7 @@ interface IGreeterService extends grpc.ServiceDefinition<grpc.UntypedServiceImpl
 }
 
 interface IGreeterService_ISayHello extends grpc.MethodDefinition<Hello_pb.HelloRequest, Hello_pb.HelloReply> {
-    path: "/hoge.Greeter/SayHello";
+    path: "/hello.Greeter/SayHello";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<Hello_pb.HelloRequest>;
@@ -22,7 +22,7 @@ interface IGreeterService_ISayHello extends grpc.MethodDefinition<Hello_pb.Hello
     responseDeserialize: grpc.deserialize<Hello_pb.HelloReply>;
 }
 interface IGreeterService_ISayRepeatHello extends grpc.MethodDefinition<Hello_pb.RepeatHelloRequest, Hello_pb.HelloReply> {
-    path: "/hoge.Greeter/SayRepeatHello";
+    path: "/hello.Greeter/SayRepeatHello";
     requestStream: false;
     responseStream: true;
     requestSerialize: grpc.serialize<Hello_pb.RepeatHelloRequest>;
