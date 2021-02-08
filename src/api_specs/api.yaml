@@ -1,20 +1,174 @@
-openapi: "3.0.0"
+openapi: 3.0.0
 info:
   version: 1.0.0
   title: labofolio api
   license:
     name: MIT
 servers:
-  - url: https://local-api.labofolio.com
-paths:
-  ## system 監視
-  /ping:
-    $ref: './ref/ping.yaml#/paths/ping'
-
-  ## 繋ぎ込みtest用
-  /test:
-    $ref: './ref/test.yaml#/paths/test'
-
+  - url: 'https://local-api.labofolio.com'
 tags:
   - name: system
     description: system relation api
+  - name: articles
+    description: blog articles api
+  - name: categories
+    description: blog categories api
+paths:
+  /ping:
+    get:
+      tags:
+        - system
+      description: |
+        ping then pong
+      x-eov-operation-id: ping
+      x-eov-operation-handler: ping
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
+  /test:
+    get:
+      tags:
+        - system
+      description: |
+        grpc client test
+      x-eov-operation-id: test
+      x-eov-operation-handler: test
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: null
+  /articles:
+    get:
+      tags:
+        - articles
+      description: |
+        articles list
+      x-eov-operation-id: list
+      x-eov-operation-handler: articles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/articles'
+  '/articles/{article_id}':
+    get:
+      tags:
+        - articles
+      description: |
+        get article details
+      x-eov-operation-id: one
+      x-eov-operation-handler: articles
+      parameters:
+        - $ref: '#/components/parameters/articleIdPathParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/article'
+  /categories:
+    get:
+      tags:
+        - categories
+      description: |
+        categories list
+      x-eov-operation-id: list
+      x-eov-operation-handler: categories
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categories'
+components:
+  schemas:
+    categories:
+      type: array
+      items:
+        $ref: '#/components/schemas/category'
+    category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - name
+        - description
+    articles:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/article'
+      required:
+        - count
+        - rows
+    article:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        subject:
+          type: string
+        content:
+          type: string
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/comment'
+      required:
+        - id
+        - subject
+        - content
+    comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        content:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+      required:
+        - id
+        - name
+        - content
+        - createdAt
+  parameters:
+    articleIdPathParams:
+      in: path
+      name: article_id
+      schema:
+        type: number
+      required: true

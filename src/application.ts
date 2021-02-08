@@ -9,14 +9,14 @@ import { middleware } from 'express-openapi-validator';
 import constant from './shared/constant';
 
 class Application {
-  private readonly port: number;
-  private readonly app: express.Application;
+  private readonly _port: number;
+  private readonly _app: express.Application;
   private _server?: http.Server;
 
   constructor(port: number) {
-    this.port = port;
+    this._port = port;
 
-    this.app = express();
+    this._app = express();
   }
 
   public start(): void {
@@ -36,12 +36,21 @@ class Application {
     });
 
     // add route
+    // TODO validate
     this.app.use(
       middleware({
         apiSpec: path.join(__dirname, './api_specs/api.yaml'),
         operationHandlers: path.join(__dirname, 'routes'),
       })
     );
+  }
+
+  get port(): number {
+    return this._port;
+  }
+
+  get app(): express.Application {
+    return this._app;
   }
 }
 

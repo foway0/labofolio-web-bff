@@ -3,6 +3,3 @@ node_modules
 
 # built ts files
 dist
-
-# oas3 merged file
-output.yaml
