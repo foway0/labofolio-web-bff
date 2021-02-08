@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { wrap } from '../helper/async_wrapper';
+import { wrap } from '../helpers/async_wrapper';
 import constant from '../shared/constant';
 
 const list = async (req: Request, res: Response) => {

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import grpc from 'grpc';
 
-import { GreeterClient } from '../grpc_spec/Hello_grpc_pb';
-import { HelloRequest } from '../grpc_spec/Hello_pb';
+import { GreeterClient } from '../grpc_specs/Hello_grpc_pb';
+import { HelloRequest } from '../grpc_specs/Hello_pb';
 import constant from '../shared/constant';
-import { wrap } from '../helper/async_wrapper';
+import { wrap } from '../helpers/async_wrapper';
 
 const test = async (req: Request, res: Response) => {
   const client = new GreeterClient(

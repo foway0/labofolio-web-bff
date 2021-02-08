@@ -7,6 +7,7 @@ import express from 'express';
 import * as path from 'path';
 import { middleware } from 'express-openapi-validator';
 import constant from './shared/constant';
+import securityHandler from './middlewares/security_handler';
 
 class Application {
   private readonly _port: number;
@@ -41,6 +42,9 @@ class Application {
       middleware({
         apiSpec: path.join(__dirname, './api_specs/api.yaml'),
         operationHandlers: path.join(__dirname, 'routes'),
+        validateSecurity: {
+          handlers: securityHandler,
+        },
       })
     );
   }

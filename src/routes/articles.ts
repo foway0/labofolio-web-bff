@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import constant from '../shared/constant';
-import { wrap } from '../helper/async_wrapper';
+import { wrap } from '../helpers/async_wrapper';
 
 const list = async (req: Request, res: Response) => {
   res.status(constant.STATUS_CODE.OK).json({

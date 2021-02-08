@@ -14,3 +14,12 @@ npm install
 npm outdated
 npm update <package-name> --save
 ```
+
+## TODO
+
+- oas
+- grpc
+- security handlers
+- routes <-> mock
+- config loader
+- unit test
