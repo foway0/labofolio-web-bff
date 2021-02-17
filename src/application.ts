@@ -4,20 +4,18 @@ const debug = process.env.DEBUG
 
 import http from 'http';
 import express from 'express';
-import * as path from 'path';
 import { middleware } from 'express-openapi-validator';
 import constant from './shared/constant';
 import securityHandler from './middlewares/security_handler';
+import context from './context';
 
 class Application {
   private readonly _port: number;
-  private readonly _app: express.Application;
+  private readonly _app: express.Application = express();
   private _server?: http.Server;
 
   constructor(port: number) {
     this._port = port;
-
-    this._app = express();
   }
 
   public start(): void {
@@ -40,8 +38,8 @@ class Application {
     // TODO validate
     this.app.use(
       middleware({
-        apiSpec: path.join(__dirname, './api_specs/api.yaml'),
-        operationHandlers: path.join(__dirname, 'routes'),
+        apiSpec: context.oasPath,
+        operationHandlers: context.controllerPath,
         validateSecurity: {
           handlers: securityHandler,
         },

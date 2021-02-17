@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
-import constant from '../shared/constant';
-import { wrap } from '../helpers/async_wrapper';
+import constant from '../../shared/constant';
+import { wrap } from '../../helpers/async_wrapper';
 
 const ping = async (req: Request, res: Response) => {
   res.status(constant.STATUS_CODE.OK).send('pong');

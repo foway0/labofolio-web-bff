@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 
-import { wrap } from '../helpers/async_wrapper';
-import constant from '../shared/constant';
+import { wrap } from '../../helpers/async_wrapper';
+import constant from '../../shared/constant';
 
-const list = async (req: Request, res: Response) => {
+const list = async (req: Request, res: Response): Promise<void> => {
   res.status(constant.STATUS_CODE.OK).json([
     {
       id: 1,
