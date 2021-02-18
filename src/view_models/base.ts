@@ -1,19 +1,22 @@
+import { Query, PathParams } from 'express-serve-static-core';
+
 export abstract class ViewModel {
-  private _path: any;
-  private _query: any;
+  private _path?: PathParams;
+  private _query?: Query;
   private _body: any;
   private _result: any;
 
-  public addPath(path: any): this {
+  public addPath(path: PathParams): this {
     this._path = path;
     return this;
   }
 
-  public addQuery(query: any): this {
+  public addQuery(query: Query): this {
     this._query = query;
     return this;
   }
 
+  // TODO any?
   public addBody(body: any): this {
     this._body = body;
     return this;
@@ -23,11 +26,12 @@ export abstract class ViewModel {
     this._result = result;
   }
 
-  get path(): any {
+  // TODO any?
+  get path(): PathParams | undefined {
     return this._path;
   }
 
-  get query(): any {
+  get query(): Query | undefined {
     return this._query;
   }
 

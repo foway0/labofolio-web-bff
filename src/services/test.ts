@@ -1,14 +1,16 @@
 import grpc from 'grpc';
 
 import { GreeterClient } from '../grpc_specs/Hello_grpc_pb';
-import { HelloRequest } from '../grpc_specs/Hello_pb';
+import { HelloRequest, HelloReply } from '../grpc_specs/Hello_pb';
+
+import { promisify } from 'util';
 
 type params = {
   query: any;
 };
 
-export const hi = ({ query }: params): Promise<any> => {
-  // TODO
+export const hi = async ({ query }: params): Promise<string> => {
+  // TODO config setting + grpc client helper化
   const client = new GreeterClient(
     'host.docker.internal:4000',
     //'localhost:4000',
@@ -17,15 +19,9 @@ export const hi = ({ query }: params): Promise<any> => {
   const message = new HelloRequest();
   message.setName(query.name || 'anonymous');
 
-  // TODO more handsome ?
-  // TODO add ono
-  return new Promise((resolve, reject) => {
-    client.sayHello(message, (error, response) => {
-      if (error) {
-        return reject(error);
-      }
-
-      return resolve(response.getMessage());
-    });
-  });
+  // TODO error Handler?
+  const result: HelloReply = await promisify<HelloRequest, HelloReply>(
+    client.sayHello
+  ).bind(client)(message);
+  return result.getMessage();
 };
