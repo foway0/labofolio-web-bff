@@ -6,14 +6,19 @@ import * as path from 'path';
 import env from './shared/env';
 
 class Context {
-  private readonly _config: Readonly<any>;
+  private _config!: Readonly<any>;
 
   constructor() {
-    this._config = this.loadConfig();
+    this.loadConfig();
   }
 
-  private loadConfig(): Readonly<any> {
-    return require(path.join(__dirname, 'shared', 'config', env.SERVICE_MODE));
+  private loadConfig(): void {
+    this._config = require(path.join(
+      __dirname,
+      'shared',
+      'config',
+      env.SERVICE_MODE
+    ));
   }
 
   private get config(): Readonly<any> {

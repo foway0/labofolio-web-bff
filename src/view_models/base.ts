@@ -1,8 +1,8 @@
 import { Query, PathParams } from 'express-serve-static-core';
 
 export abstract class ViewModel {
-  private _path?: PathParams;
-  private _query?: Query;
+  private _path!: PathParams;
+  private _query!: Query;
   private _body: any;
   private _result: any;
 
@@ -27,11 +27,11 @@ export abstract class ViewModel {
   }
 
   // TODO any?
-  get path(): PathParams | undefined {
+  get path(): PathParams {
     return this._path;
   }
 
-  get query(): Query | undefined {
+  get query(): Query {
     return this._query;
   }
 
