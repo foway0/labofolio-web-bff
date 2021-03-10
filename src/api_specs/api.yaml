@@ -5,7 +5,7 @@ info:
   license:
     name: MIT
 servers:
-  - url: 'https://local-api.labofolio.com'
+  - url: /v1
 tags:
   - name: system
     description: system relation api
