@@ -12,8 +12,7 @@ type params = {
 export const hi = async ({ query }: params): Promise<string> => {
   // TODO config setting + grpc client helper化
   const client = new GreeterClient(
-    'host.docker.internal:4000',
-    //'localhost:4000',
+    'host.docker.internal:3001',
     grpc.credentials.createInsecure()
   );
   const message = new HelloRequest();
